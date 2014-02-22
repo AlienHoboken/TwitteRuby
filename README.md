@@ -1,6 +1,6 @@
 #TwitteRuby Gem
 
-TwitteRuby is a wrapper library for the Twitter API, written in Ruby and utilizing reflection. TwitteRuby can be used to retrieve the raw JSON from the API calls, processing beyond that is not in the scope of TwitteRuby.
+TwitteRuby is a wrapper library for the Twitter API, written in Ruby and utilizing reflection. TwitteRuby can be used to retrieve the raw JSON from the API calls, and optionally parse it into a Ruby data structure.
 
 Due to its reflection nature, TwitteRuby supports all current and hopefully future API calls due to this design.
 
@@ -28,6 +28,22 @@ becomes
     my_twitteruby.get_statuses__user_timeline
 
 This may seem a little fuzzy at first, but it's how TwitteRuby uses reflection to support all current and future Twitter API calls.
+
+A convenience function `parseJSON` is provided which will parse all JSON into a Ruby data structure.
+
+So a complete example might look like:
+	require "twitteruby"
+
+	#make sure to fill in the credentials
+	twit = TwitteRuby.new(oauth_consumer_key, oauth_consumer_secret, oauth_token, oauth_token_secret, "https://api.twitter.com/1.1/")
+
+	#get all statuses from the timeline as JSON
+	json_data = twit.get_statuses__user_timeline()
+
+	#use convenience method to parse it into a Ruby data structure
+	data = twit.parseJSON(json_data)
+
+	#do something with it
 
 ##Contributing
 
